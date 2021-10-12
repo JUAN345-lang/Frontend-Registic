@@ -18,6 +18,7 @@
                       placeholder="Email address"
                       required=""
                       autofocus=""
+                      v-model="form.email"
                       class="form-control rounded-pill border-0 shadow-sm px-4"
                     />
                   </div>
@@ -27,23 +28,14 @@
                       type="password"
                       placeholder="Password"
                       required=""
+                      v-model="form.password"
                       class="form-control rounded-pill border-0 shadow-sm px-4 text-primary"
                     />
                   </div>
-                  <div class="form-check">
-                    <input
-                      id="customCheck1"
-                      type="checkbox"
-                      checked
-                      class="form-check-input"
-                    />
-                    <label for="customCheck1" class="form-check-label"
-                      >Remember password</label
-                    >
-                  </div>
+                
                   <div class="d-grid gap-2 mt-2">
                     <button
-                      type="submit"
+                      @click="signin"
                       class="btn btn-primary btn-block text-uppercase mb-2 rounded-pill shadow-sm"
                     >
                       Sign in
@@ -76,42 +68,34 @@
 </style>
 
 <script>
+import axios from 'axios'
 export default {
-  data() {
-    return {
-      form: {
-        email: "",
-        name: "",
-        food: null,
-        checked: [],
-      },
-      foods: [
-        { text: "Select One", value: null },
-        "Carrots",
-        "Beans",
-        "Tomatoes",
-        "Corn",
-      ],
-      show: true,
-    };
-  },
+
+  data: function() {
+      return {
+        form : {
+          email:null,
+          password:null,
+        }
+        
+      };
+}
+  ,
   methods: {
-    onSubmit(event) {
-      event.preventDefault();
-      alert(JSON.stringify(this.form));
-    },
-    onReset(event) {
-      event.preventDefault();
-      // Reset our form values
-      this.form.email = "";
-      this.form.name = "";
-      this.form.food = null;
-      this.form.checked = [];
-      // Trick to reset/clear native browser form validation state
-      this.show = false;
-      this.$nextTick(() => {
-        this.show = true;
-      });
+    signin() {
+      let formData = new URLSearchParams()
+      formData.append('email', this.form.email)
+      formData.append('password', this.form.password)
+      axios.post('http://localhost:3000/login', formData, {
+                headers: {
+                    "Access-Control-Allow-Methods":"POST"
+                }
+            })
+            .then( ( response ) => {
+              console.log(response);
+                localStorage.setItem('token', response.data.token);
+                this.$router.push('/home');
+            }).catch((error)=>{console.log(error)})
     },
   },
 };
