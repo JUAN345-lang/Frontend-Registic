@@ -1,4 +1,4 @@
-# frontend-registic
+# vue-app
 
 ## Project setup
 ```
