@@ -14,6 +14,7 @@
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vue-axios": "^3.3.7",
+    "vue-js-list": "0.0.17",
     "vue-router": "^3.5.2"
   },
   "devDependencies": {

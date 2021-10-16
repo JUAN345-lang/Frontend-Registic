@@ -2,14 +2,12 @@
   <div class="container-fluid">
     <div class="row no-gutter">
       <div class="col-md-6 d-none d-md-flex bg-image"></div>
-
       <div class="col-md-6 bg-light">
         <div class="login d-flex align-items-center py-5">
           <div class="container">
             <div class="row">
               <div class="col-lg-10 col-xl-7 mx-auto">
-                <h3 class="display-4">Registrate !</h3>
-               
+                <h3 class="display-4">Registrate !</h3>               
                 <form>
                   <div class="mb-3">
                     <input
@@ -32,9 +30,7 @@
                       v-model="form.email"
                       class="form-control rounded-pill border-0 shadow-sm px-4"
                     />
-                  </div>
-                  
-                 
+                  </div>                 
                   <div class="mb-3">
                     <input
                       id="inputRol"
@@ -132,8 +128,8 @@ export default {
                 }
             })
             .then((response)=>{
-               localStorage.setItem('token', response.data.token);
-                this.$router.push('/home');
+              console.log(response)
+                this.$router.push('/login');
             }).catch((error)=>{console.log(error)})
     },
   },

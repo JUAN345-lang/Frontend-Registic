@@ -1,7 +1,7 @@
-const url = 'https://randomuser.me/api/';
+const url = 'http://localhost:3000/students';
 
 function getUsersPromise() {
-    return fetch(url+'?results=50')
+    return fetch(url)
     .then(res => res.json())
     .then(res => res.results)
     .catch(err => console.log(err));
@@ -9,9 +9,10 @@ function getUsersPromise() {
 
 const getUsersAsync = async ()=>{
     try{
-        const res = await fetch(url+'?results=50');
+        const res = await fetch(url);
         const data = await res.json();
-        return data.results;
+        console.log(data)
+        return data;
     }catch(err){
         console.log(err);
     }
@@ -19,17 +20,43 @@ const getUsersAsync = async ()=>{
 
 const getUserData = async (id)=>{
     try{
-        const res = await fetch(`${url}?id=${id}`);
-        // const res = await fetch(url+'?id='+id);
+        const res = await fetch(`${url}/${id}`);
         const data = await res.json();
-        return data.results[0];
+        return data;
     }catch(err){
         console.log(err)
     }
 }
 
+const deleteUser = async(id) => {
+    try{
+        const res = await fetch(`${url}/${id}`, { method:'DELETE' });
+        const data = await res.json();
+        return data;
+    }catch(err){
+        console.log(err)
+    }
+}
+
+const updateUser = async(id, body) => {
+    try{
+        const res = await fetch(`${url}/${id}`, { method:'PUT', 
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(body)
+    });
+        const data = await res.json();
+        return data;
+    }catch(err){
+        console.log(err)
+    }
+}
 export default{
     getUsersPromise,
     getUsersAsync,
-    getUserData
+    getUserData,
+    deleteUser,
+    updateUser
 }

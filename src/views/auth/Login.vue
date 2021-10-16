@@ -8,8 +8,7 @@
           <div class="container">
             <div class="row">
               <div class="col-lg-10 col-xl-7 mx-auto">
-                <h3 class="display-4">Welcome !</h3>
-               
+                <h3 class="display-4">Welcome !</h3>               
                 <form>
                   <div class="mb-3">
                     <input
@@ -92,7 +91,6 @@ export default {
                 }
             })
             .then( ( response ) => {
-              console.log(response);
                 localStorage.setItem('token', response.data.token);
                 this.$router.push('/home');
             }).catch((error)=>{console.log(error)})
